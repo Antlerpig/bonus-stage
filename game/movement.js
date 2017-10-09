@@ -38,17 +38,8 @@ var layout = {
         '-': Object.extend(tile, {graphicState: 'sidewalk1', color: '#9c4', dense: false}),
         '=': Object.extend(tile, {graphicState: 'sidewalk2', color: '#9c4', dense: true}),
         '#': Object.extend(tile, {color: '#060', dense: true}),
-        '.': Object.extend(tile, {color: '#080', dense: false, slope: {left:0, right:1/2}}),
-        '/': Object.extend(tile, {color: '#080', dense: false, slope: {left:1/2, right:1}}),
-        ',': Object.extend(tile, {color: '#080', dense: false, slope: {left:1/2, right:0}}),
-        '|': Object.extend(tile, {color: '#080', dense: false, slope: {left:1, right:1/2}}),
-        '*': Object.extend(tile, {color: '#488', dense: false, locking: true, activate: function (posX, posY){
-            game.level.lockCamera();
-            var anItem = Object.instantiate(enemy);
-            //anItem.faction = 0;
-            anItem.x = posX * TILE_SIZE;
-            anItem.y = posY * TILE_SIZE;
-        }})
+        '.': Object.extend(tile, {color: '#488', dense: true}),
+        '|': Object.extend(tile, {graphicState: 'sidewalk1', color: '#9c4', dense: true})
     },
     tileGrid:
         '                '+
@@ -176,7 +167,7 @@ var mover = {
     velY: 0,
     width:  TILE_SIZE,
     height: TILE_SIZE,
-    color: 'grey',
+    color: null,
     gravity: 0,
     direction: RIGHT,
     _new: function (){
@@ -379,15 +370,4 @@ var item = Object.extend(mover, {
         this.dispose();
     },
     effect: function (){}
-});
-var foob = Object.extend(item, {
-    color: 'yellow',
-    effect: function (collider){
-        game.character.color = pick('red', 'blue', 'magenta', 'orange', 'brown', 'black');
-    },
-    _new: function (){
-        if(item._new){ item._new.apply(this, arguments);}
-        this.name = 'foob'+randomInterval(1000,9999);
-        return this;
-    }
 });

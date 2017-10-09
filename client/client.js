@@ -13,7 +13,12 @@ var client = Object.extend(driver, {
             //this.skin.draw();
             
             game.level = Object.instantiate(level, layout);
-            game.character = Object.instantiate(character);
+            // Add statue
+            var theStatue = Object.instantiate(statue);
+            theStatue.x = 12*TILE_SIZE;
+            // Add Character
+            game.character = Object.instantiate(hero);
+            //
             game.level.start();
             /*this.drivers.title.setup(configuration);
             this.drivers.gameplay.setup(configuration);

@@ -22,6 +22,10 @@ var sequences = {
                 owner.sequence('punch');
                 return;
             }
+            if(owner.order('jump', SECONDARY)){
+                owner.sequence('jump');
+                return;
+            }
             if(owner.order('walkRight' , RIGHT)){ directionX =  1;}
             if(owner.order('walkLeft'  , LEFT )){ directionX = -1;}
             owner.walk(directionX);
@@ -221,9 +225,9 @@ var sequences = {
             } else{
                 owner.translate(this.directionX*4, 0, 0);
                 if(owner.direction === RIGHT){
-                    owner.attack(owner.x+owner.width+14, owner.y+32);
+                    owner.attack(owner.x+owner.width+14, owner.y);
                 } else{
-                    owner.attack(owner.x-14, owner.y+32);
+                    owner.attack(owner.x-14, owner.y);
                 }
             }
         },
@@ -243,7 +247,6 @@ var character = Object.extend(mover, {
     x: 16,
     y: 96,
     height: 32,
-    color: 'black',
     name: 'character',
     graphic: 'test',
     graphicState: 'walk1',
@@ -324,11 +327,13 @@ var character = Object.extend(mover, {
 var enemy = Object.extend(character, {
     speed: 1,
     faction: FACTION_ENEMY,
+    dead: false,
     die: function (){
+        this.dead = true;
         game.level.cancelMover(this);
     },
     order: function (description, command){
-        switch (description){
+        /*switch (description){
             case 'walkRight':
                 if(game.character.x - this.x > 14){ return true;}
                 if(this.direction === LEFT && game.character.x > this.x){ return true;}
@@ -340,7 +345,39 @@ var enemy = Object.extend(character, {
             case 'punch':
                 if(Math.random()*8 > 1){ return false;}
                 if(Math.abs(game.character.x - this.x) <= 14+12){ return true;}
-        }
+        }*/
         return false;
+    },
+});
+var statue = Object.extend(enemy, {
+    height: 40,
+    color: 'goldenrod',
+    _new: function (){
+        var result = enemy._new.apply(this, arguments);
+        this.x = 12*TILE_SIZE;
+        this.y = 5*TILE_SIZE;
+        this.base = Object.instantiate(base);
+        this.base.x = this.x+(this.width-this.base.width)/2;
+        this.base.y = 2*TILE_SIZE;
+        return result;
+    },
+    hurt: function (amount, attacker, tripping){
+        //shake
+        //
+    },
+    translate: function (deltaX, deltaY){
+        if(this.base && !this.base.dead){ deltaY = 0;}
+        return enemy.translate.call(this, deltaX, deltaY);
     }
 });
+var base = Object.extend(enemy, {
+    width: 32,
+    height: 48,
+    color: 'white'
+});
+var hero = Object.extend(character, {
+    translate: function (deltaX, deltaY){
+        deltaX = Math.min(this.x+deltaX, 11*TILE_SIZE) - this.x;
+        return character.translate.call(this, deltaX, deltaY);
+    }
+})

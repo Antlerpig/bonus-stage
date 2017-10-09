@@ -1,3 +1,4 @@
 *.zip
 *.komodoproject
-
+*.komodotools
+.komodotools

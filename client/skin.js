@@ -63,6 +63,7 @@ client.skin = Object.extend(driver, {
     draw: function (options){
         this.context.fillStyle = 'rgba(0,0,0,0.25)'//'#000';
         this.context.fillRect(0,0,DISPLAY_WIDTH, DISPLAY_HEIGHT);
+        // Draw Tiles
         for(var posI = 0; posI < game.level.tileGrid.length; posI++){
             var tile = game.level.tileGrid[posI];
             var posX = posI%game.level.width;
@@ -77,12 +78,14 @@ client.skin = Object.extend(driver, {
                 this.drawGraphic(tile.graphic, tile.graphicState, posX*TILE_SIZE, posY*TILE_SIZE);
             }
         }
+        // Draw Movers
         game.level.movers.forEach(function (theMover){
             var displayY = theMover.y;
+            if(theMover.color){
+                this.fillRect(theMover.x, displayY, theMover.width, theMover.height, theMover.color);
+            }
             this.drawGraphic(theMover.graphic, theMover.graphicState, theMover.x, displayY);
-            //this.fillRect(theMover.x, displayY, theMover.width, theMover.height, theMover.color);
         }, this);
-        client.skin.fillRect(game.camera.x,0,1,400,'yellow');
     },
     graphicsTimer: {
         time: 0,
