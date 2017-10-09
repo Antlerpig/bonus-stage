@@ -1,4 +1,5 @@
 'use strict';
+
 var game = {
     level: null,
     movers: [],
@@ -30,12 +31,12 @@ var tile = {
     activate: function (posX, posY){}
 };
 var layout = {
-    width: 4*16,
+    width: 16,
     height: 12,
     tileTypes: {
         ' ': Object.extend(tile, {color: '#488', dense: false}),
         '-': Object.extend(tile, {graphicState: 'sidewalk1', color: '#9c4', dense: false}),
-        '=': Object.extend(tile, {graphicState: 'sidewalk2', color: '#9c4', dense: false}),
+        '=': Object.extend(tile, {graphicState: 'sidewalk2', color: '#9c4', dense: true}),
         '#': Object.extend(tile, {color: '#060', dense: true}),
         '.': Object.extend(tile, {color: '#080', dense: false, slope: {left:0, right:1/2}}),
         '/': Object.extend(tile, {color: '#080', dense: false, slope: {left:1/2, right:1}}),
@@ -46,22 +47,22 @@ var layout = {
             var anItem = Object.instantiate(enemy);
             //anItem.faction = 0;
             anItem.x = posX * TILE_SIZE;
-            anItem.y = posY * TILE_SIZE
+            anItem.y = posY * TILE_SIZE;
         }})
     },
     tileGrid:
-        '                                                                '+
-        '                                                                '+
-        '                                                                '+
-        '                                                                '+
-        '                                                                '+
-        '                                --------------                  '+
-        '                   -------------==============---               '+
-        '     --------------===*=========./##########|,===--             '+
-        '-----==============./#|/#######################|,==-------------'+
-        '=====./##|/#|/###################################|,============='+
-        '################################################################'+
-        '################################################################'
+        '                '+
+        '                '+
+        '                '+
+        '                '+
+        '                '+
+        '                '+
+        '                '+
+        '                '+
+        '                '+
+        '----------------'+
+        '================'+
+        '################'
 };
 var level = {
     tileGrid: undefined,
@@ -197,32 +198,26 @@ var mover = {
         }
         return false;
     },
-    containsPoint: function (x, y, z){
-        if(Math.abs(z-this.z >= 4)){ return false;}
+    containsPoint: function (x, y){
         if(this.x <= x && this.x+this.width >= x && this.y <= y && this.y+this.height >= y){
             return true;
         }
         return false;
     },
     land: function (){},
-    translate: function(deltaX, deltaY, deltaZ){
+    translate: function(deltaX, deltaY){
         //var success = false;
         // Determine if movement will cause the object's edge to cross a border between turfs.
         var checkX = false;
         var checkY = false;
-        var checkZ = false;
         var poleX;
         var poleY;
-        var poleZ;
         if(!deltaX){ poleX = 0;}
         else if(deltaX > 0){ poleX = 1;}
         else{ poleX = -1;}
         if(!deltaY){ poleY = 0;}
         else if(deltaY > 0){ poleY = 1;}
         else{ poleY = -1;}
-        if(!deltaZ){ poleZ = 0;}
-        else if(deltaZ > 0){ poleZ = 1;}
-        else{ poleZ = -1;}
         var baseY = Math.floor((this.y)/TILE_SIZE)*TILE_SIZE;
         if(poleX == 1){
             if(((this.x+this.width)-1)%TILE_SIZE + deltaX >= TILE_SIZE){
@@ -366,7 +361,6 @@ var mover = {
             }
         }
         this.y += deltaY;
-        this.z = Math.min(32, Math.max(0, this.z+deltaZ));
         //if(deltaX || deltaY){
         //    this.update_public({"x":this.x, "y":this.y});
         //}

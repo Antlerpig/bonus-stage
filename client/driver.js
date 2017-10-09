@@ -1,3 +1,5 @@
+'use strict';
+
 // TODO: Document.
 var driver = {
     currentFocus: undefined,

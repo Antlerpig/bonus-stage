@@ -13,7 +13,7 @@ var MAP_WIDTH  = 6;
 var MAP_HEIGHT = 8;
 var TILE_SIZE = 16;
 var DISPLAY_WIDTH = 16*TILE_SIZE;
-var DISPLAY_HEIGHT = 12*TILE_SIZE;
+var DISPLAY_HEIGHT = 9*TILE_SIZE;
 var CLIENT_SPEED = 1000/30;
     // Directions:
 var UP        = 1;

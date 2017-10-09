@@ -18,16 +18,13 @@ var sequences = {
         takeTurn: function (owner){
             var directionX = 0;
             var directionY = 0;
-            var directionZ = 0;
             if(owner.order('punch', PRIMARY)){
                 owner.sequence('punch');
                 return;
             }
-            if(owner.order('strafeUp'  , UP   )){ directionZ =  1;}
-            if(owner.order('strafeDown', DOWN )){ directionZ = -1;}
             if(owner.order('walkRight' , RIGHT)){ directionX =  1;}
             if(owner.order('walkLeft'  , LEFT )){ directionX = -1;}
-            owner.walk(directionX, directionZ);
+            owner.walk(directionX);
             /*} else if(this.state === STATE_STANDING|STATE_PUNCHING){
                 //this.punch(2)
             }*/
@@ -271,7 +268,7 @@ var character = Object.extend(mover, {
         this.currentSequence = Object.create(sequenceModel);
         this.currentSequence.init(this);
     },
-    walk: function (direction, z){
+    walk: function (direction){
         var deltaX = 0;
         if(direction){
             this.direction = (direction > 0)? RIGHT : LEFT;
@@ -290,8 +287,8 @@ var character = Object.extend(mover, {
                 }
             }
         }
-        if(deltaX || z){
-            this.translate(deltaX, 0, z);
+        if(deltaX){
+            this.translate(deltaX, 0);
             var frame = Math.floor((client.skin.graphicsTimer.time%24)/6)+1;
             if(frame === 4){ frame = 2;}
             this.graphicState = 'walk'+frame;
@@ -309,7 +306,7 @@ var character = Object.extend(mover, {
         game.level.movers.forEach(function (theMover){
             if(theMover.faction & this.faction){ return;}
             if(!theMover.hurt){ return;}
-            if(theMover.containsPoint(x, y, this.z)){
+            if(theMover.containsPoint(x, y)){
                 theMover.hurt(1, this, tripping);
             }
         }.bind(this));
@@ -332,12 +329,6 @@ var enemy = Object.extend(character, {
     },
     order: function (description, command){
         switch (description){
-            case 'strafeUp':
-                if(game.character.z - this.z > 2){ return true;}
-                break;
-            case 'strafeDown':
-                if(game.character.z - this.z < -2){ return true;}
-                break;
             case 'walkRight':
                 if(game.character.x - this.x > 14){ return true;}
                 if(this.direction === LEFT && game.character.x > this.x){ return true;}
@@ -348,7 +339,6 @@ var enemy = Object.extend(character, {
                 break;
             case 'punch':
                 if(Math.random()*8 > 1){ return false;}
-                if(Math.abs(game.character.z - this.z) >= 3){ return false;}
                 if(Math.abs(game.character.x - this.x) <= 14+12){ return true;}
         }
         return false;

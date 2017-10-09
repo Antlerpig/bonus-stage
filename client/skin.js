@@ -1,4 +1,5 @@
 'use strict';
+
 // TODO: Document.
 client.skin = Object.extend(driver, {
     container: undefined,
@@ -77,11 +78,11 @@ client.skin = Object.extend(driver, {
             }
         }
         game.level.movers.forEach(function (theMover){
-            var displayY = theMover.y + theMover.z
+            var displayY = theMover.y;
             this.drawGraphic(theMover.graphic, theMover.graphicState, theMover.x, displayY);
             //this.fillRect(theMover.x, displayY, theMover.width, theMover.height, theMover.color);
         }, this);
-        client.skin.fillRect(game.camera.x,0,1,400,'yellow')
+        client.skin.fillRect(game.camera.x,0,1,400,'yellow');
     },
     graphicsTimer: {
         time: 0,

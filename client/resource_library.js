@@ -63,7 +63,6 @@ var graphic = (function (){
         var adjustY = Math.round((DISPLAY_HEIGHT)-(y+height));
         if(this.nudgeX){ adjustX += this.nudgeX;}
         if(this.nudgeY){ adjustY -= this.nudgeY;}
-        if(options.z){ adjustY -= options.z;}
         if(options.center){
             adjustX -= Math.floor(width/2);
             adjustY += Math.floor(height/2);
