@@ -259,6 +259,16 @@ client.resourceLibrary = {
 	images: {},
 	library: {
 		graphic: {
+            controller: spriteSheet('img/buttons.png', {
+                'left': {},
+                'leftDown': {offsetY: 32},
+                'right': {offsetX: 32},
+                'rightDown': {offsetX: 32, offsetY: 32},
+                'up': {offsetX: 64},
+                'upDown': {offsetX: 64, offsetY: 32},
+                'primary': {offsetX: 128},
+                'primaryDown': {offsetX: 128, offsetY: 32}
+            }, {width: 32, height: 32}),
             "test": spriteSheet('img/test.png', {
                 "walk1": {},
                 "walk2": {offsetX: 16},

@@ -4,6 +4,17 @@ var game = {
     level: null,
     movers: [],
     character: null,
+    _new: function (){
+        // Start Game
+        this.level = Object.instantiate(level, layout);
+        // Add statue
+        var theStatue = Object.instantiate(statue);
+        theStatue.x = 12*TILE_SIZE;
+        // Add Character
+        this.character = Object.instantiate(hero);
+        //
+        this.level.start();
+    },
     camera: {
         x: 0,
         targetX: 0,
@@ -96,7 +107,7 @@ var level = {
     },
     start: function (){
         //this.populate();
-        setInterval(this.iterate.bind(this), CLIENT_SPEED);
+        //setInterval(this.iterate.bind(this), CLIENT_SPEED);
     },
     lockCamera: function (){
         this.cameraLock = true;
@@ -136,7 +147,6 @@ var level = {
                 }
             }
         }
-        client.skin.draw();
         /*
         moversCopy = this.movers.slice();
         for(I = 0; I < moversCopy.length; I++){

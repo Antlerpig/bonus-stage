@@ -22,7 +22,7 @@ var sequences = {
                 owner.sequence('punch');
                 return;
             }
-            if(owner.order('jump', SECONDARY)){
+            if(owner.order('jump', UP)){
                 owner.sequence('jump');
                 return;
             }
@@ -340,7 +340,6 @@ var enemy = Object.extend(character, {
     },
     durability: 12,
     hurt: function (amount, attacker, tripping){
-        console.log('hurt')
         if(!this.shaking){
             this.durability--;
             if(this.durability <= 0){

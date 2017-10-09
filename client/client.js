@@ -4,22 +4,12 @@ var client = Object.extend(driver, {
     drivers: {},
     setup: function (configuration){
         this.resourceLibrary.setup(configuration, function (){
-            console.log(this)
-            
             this.keyCapture.setup(configuration);
             this.skin.setup(configuration);
+            this.title.setup(configuration);
             this.gameplay.setup(configuration);
-            this.focus(this.gameplay);
-            //this.skin.draw();
+            this.focus(this.title);
             
-            game.level = Object.instantiate(level, layout);
-            // Add statue
-            var theStatue = Object.instantiate(statue);
-            theStatue.x = 12*TILE_SIZE;
-            // Add Character
-            game.character = Object.instantiate(hero);
-            //
-            game.level.start();
             /*this.drivers.title.setup(configuration);
             this.drivers.gameplay.setup(configuration);
             this.focus(this.drivers.title);*/

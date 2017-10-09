@@ -15,7 +15,9 @@ var TILE_SIZE = 16;
 var DISPLAY_WIDTH = 16*TILE_SIZE;
 var DISPLAY_HEIGHT = 9*TILE_SIZE;
 var CLIENT_SPEED = 1000/30;
-var DEFAULT_DISPLAY_SCALE = 3;
+var DEFAULT_DISPLAY_SCALE = 1;
+var FONT_FAMILY = 'press_start_kregular';
+var FONT_SIZE = 8;
     // Directions:
 var UP        = 1;
 var DOWN      = 2;
