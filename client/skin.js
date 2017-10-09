@@ -81,10 +81,14 @@ client.skin = Object.extend(driver, {
         // Draw Movers
         game.level.movers.forEach(function (theMover){
             var displayY = theMover.y;
-            if(theMover.color){
-                this.fillRect(theMover.x, displayY, theMover.width, theMover.height, theMover.color);
+            var displayX = theMover.x;
+            if(theMover.shaking){
+                displayX += theMover.shaking%3
             }
-            this.drawGraphic(theMover.graphic, theMover.graphicState, theMover.x, displayY);
+            if(theMover.color){
+                this.fillRect(displayX, displayY, theMover.width, theMover.height, theMover.color);
+            }
+            this.drawGraphic(theMover.graphic, theMover.graphicState, displayX, displayY);
         }, this);
     },
     graphicsTimer: {

@@ -327,11 +327,27 @@ var character = Object.extend(mover, {
 });
 var enemy = Object.extend(character, {
     speed: 1,
+    shaking: 0,
     faction: FACTION_ENEMY,
     dead: false,
     die: function (){
         this.dead = true;
         game.level.cancelMover(this);
+    },
+    takeTurn: function (){
+        if(this.shaking){ this.shaking--;}
+        return character.takeTurn.apply(this, arguments);
+    },
+    durability: 12,
+    hurt: function (amount, attacker, tripping){
+        console.log('hurt')
+        if(!this.shaking){
+            this.durability--;
+            if(this.durability <= 0){
+                this.die();
+            }
+            this.shaking = 9;
+        }
     },
     order: function (description, command){
         /*switch (description){
@@ -362,10 +378,7 @@ var statue = Object.extend(enemy, {
         this.base.y = 2*TILE_SIZE;
         return result;
     },
-    hurt: function (amount, attacker, tripping){
-        //shake
-        //
-    },
+    durability: 13,
     translate: function (deltaX, deltaY){
         if(this.base && !this.base.dead){ deltaY = 0;}
         return enemy.translate.call(this, deltaX, deltaY);
@@ -375,10 +388,6 @@ var base = Object.extend(enemy, {
     width: 32,
     height: 48,
     color: 'white',
-    hurt: function (amount, attacker, tripping){
-        //shake
-        //
-    }
 });
 var hero = Object.extend(character, {
     translate: function (deltaX, deltaY){
