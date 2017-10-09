@@ -96,7 +96,7 @@ var level = {
     },
     start: function (){
         //this.populate();
-        setInterval(this.iterate.bind(this), 1000/30);
+        setInterval(this.iterate.bind(this), CLIENT_SPEED);
     },
     lockCamera: function (){
         this.cameraLock = true;

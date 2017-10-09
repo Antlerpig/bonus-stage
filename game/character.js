@@ -39,18 +39,18 @@ var sequences = {
         init: function (owner){
             this.graphicState = 'walk3';
             owner.graphicState = this.graphicState;
-            this.time = 7;
+            this.time = 14;
         },
         takeTurn: function (owner){
             if(!(this.time--)){
                 owner.sequence('stand');
                 return;
             }
-            if(this.time < 2 && owner.order('punch', PRIMARY)){
+            if(this.time < 4 && owner.order('punch', PRIMARY)){
                 owner.sequence('punch2');
                 return;
             }
-            if(this.time < 5){
+            if(this.time < 10){
                 this.graphicState = 'punch1';
                 if(owner.direction === RIGHT){
                     owner.attack(owner.x+owner.width+14, owner.y+32);
@@ -65,18 +65,18 @@ var sequences = {
         init: function (owner){
             this.graphicState = 'walk3';
             owner.graphicState = this.graphicState;
-            this.time = 7;
+            this.time = 14;
         },
         takeTurn: function (owner){
             if(!(this.time--)){
                 owner.sequence('stand');
                 return;
             }
-            if(this.time < 2 && owner.order('punch', PRIMARY)){
+            if(this.time < 4 && owner.order('punch', PRIMARY)){
                 owner.sequence('punch3');
                 return;
             }
-            if(this.time < 5){
+            if(this.time < 10){
                 this.graphicState = 'punch2';
                 if(owner.direction === RIGHT){
                     owner.attack(owner.x+owner.width+14, owner.y+32);
@@ -91,15 +91,15 @@ var sequences = {
         init: function (owner){
             this.graphicState = 'walk3';
             owner.graphicState = this.graphicState;
-            this.time = 8;
+            this.time = 16;
         },
         takeTurn: function (owner){
             if(!(this.time--)){
                 owner.sequence('stand');
                 return;
             }
-            if(this.time < 6){ this.graphicState = 'punch3';}
-            if(this.time < 4){
+            if(this.time < 12){ this.graphicState = 'punch3';}
+            if(this.time < 8){
                 this.graphicState = 'punch4';
                 if(owner.direction === RIGHT){
                     owner.attack(owner.x+owner.width+14, owner.y+32, true);
@@ -187,7 +187,7 @@ var sequences = {
                 if(!this.landed){
                     this.jumped = true;
                     owner.graphicState = 'jump';
-                    owner.velY = 12;
+                    owner.velY = owner.jumpSpeed;
                 } else{
                     owner.sequence('stand')
                 }
@@ -252,7 +252,8 @@ var character = Object.extend(mover, {
     graphicState: 'walk1',
     faction: FACTION_PLAYER,
     speed: 2,
-    gravity: 2,
+    gravity: 1,
+    jumpSpeed: 8,
     order: function (description, command){
         return client.keyCapture.check(command);
     },
@@ -373,7 +374,11 @@ var statue = Object.extend(enemy, {
 var base = Object.extend(enemy, {
     width: 32,
     height: 48,
-    color: 'white'
+    color: 'white',
+    hurt: function (amount, attacker, tripping){
+        //shake
+        //
+    }
 });
 var hero = Object.extend(character, {
     translate: function (deltaX, deltaY){

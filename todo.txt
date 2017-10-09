@@ -3,7 +3,6 @@ Hud Buttons
 "READY?" => "GO!"
 Statue, base
     shake, break, fall, break
-Jump, jump kick
 "You win!" => "Perfect!"
 "Happy Indigenous People's Day" Banner
 Happy crowd cheers as you punch
