@@ -255,7 +255,7 @@ var character = Object.extend(mover, {
     gravity: 1,
     jumpSpeed: 8,
     order: function (description, command){
-        return client.keyCapture.check(command);
+        return client.gameplay.check(command);
     },
     die: function (){
         
@@ -381,6 +381,10 @@ var statue = Object.extend(enemy, {
     translate: function (deltaX, deltaY){
         if(this.base && !this.base.dead){ deltaY = 0;}
         return enemy.translate.call(this, deltaX, deltaY);
+    },
+    die: function (){
+        client.gameplay.focus(client.gameplay.clearScreen);
+        return enemy.die.apply(this, arguments);
     }
 });
 var base = Object.extend(enemy, {

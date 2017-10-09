@@ -1,8 +1,11 @@
-Hud Buttons
-"READY?" => "GO!"
-"You win!" => "Perfect!"
 "Happy Indigenous People's Day" Banner
 Happy crowd cheers as you punch
 Graphics
     Title Screen
+        With Start Button
+    Ready? Go!
+    Perfect!
     Statue, Base, +bits (explosion)
+    Character
+    Background
+    Crowd
