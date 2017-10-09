@@ -1,8 +1,10 @@
+Graphics Scale
 Title Screen
 Hud Buttons
 "READY?" => "GO!"
 Statue, base
-    shake, break, fall, break
+    Graphics
+        Explode into pieces, blink and disappear
 "You win!" => "Perfect!"
 "Happy Indigenous People's Day" Banner
 Happy crowd cheers as you punch

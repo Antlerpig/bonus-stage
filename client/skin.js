@@ -4,6 +4,13 @@
 client.skin = Object.extend(driver, {
     container: undefined,
     context: undefined,
+    scale: DEFAULT_DISPLAY_SCALE,
+    rescale: function (newScale){
+        this.scale = newScale;
+        if(!this.displayContext){ return;}
+        this.displayContext.canvas.width = this.context.canvas.width*scale;
+        this.displayContext.canvas.height = this.context.canvas.height*scale;
+    },
     setup: function (configuration){
         /**
             This function configures the map to display game data. It is called
@@ -26,10 +33,26 @@ client.skin = Object.extend(driver, {
         this.container = document.getElementById(configuration.containerId);
         this.container.tabIndex = 1;
         this.container.focus();
-        this.container.appendChild(ownCanvas);
+        //this.container.appendChild(ownCanvas);
         // 
         this.context.fillStyle = 'gray';
         this.context.fillRect(0, 0, this.width, this.height);
+        // Setup Display Canvas
+        var displayCanvas = document.createElement('canvas');
+        displayCanvas.width = this.width*this.scale;
+        displayCanvas.height = this.height*this.scale;
+        displayCanvas.addEventListener('click', this.clickHandler);
+        this.displayContext = displayCanvas.getContext('2d');
+        this.displayContext.imageSmoothingEnabled = false;
+        this.displayContext.webkitImageSmoothingEnabled = false;
+        this.displayContext.mozImageSmoothingEnabled = false;
+        this.container.appendChild(displayCanvas);
+        // Setup Resize Handler, initialize size
+        /*window.addEventListener("resize", function (e){
+            client.skin.resize();
+        }, false);
+        this.resize();*/
+        // Start Graphics Timer
         this.graphicsTimer.start();
     },
     clickHandler: function (clickEvent){
@@ -99,12 +122,12 @@ client.skin = Object.extend(driver, {
         iterator: function (){
             this.time++;
             client.tick();
-            /*client.skin.displayContext.drawImage(
+            // Write to display Canvas
+            client.skin.displayContext.drawImage(
                 client.skin.context.canvas,
-                0,0,
-                displayWidth*client.skin.scale,
-                displayHeight*client.skin.scale
-            );*/
+                0, 0, client.skin.context.canvas.width, client.skin.context.canvas.height,
+                0, 0, client.skin.displayContext.canvas.width, client.skin.displayContext.canvas.height
+            );
         },
         start: function (){
             this.iterate = this.iterator.bind(this);
