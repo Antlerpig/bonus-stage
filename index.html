@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Project Kale, Internal 0.1</title>
+        <script src="client/libraries/mousetrap.min.js"></script>
+        <script src="shared/environment.js"></script>
+        <!-- Server -->
+            <!-- Only Libraries and snippets before this point. -->
+        <script src="game/movement.js"></script>
+        <script src="game/character.js"></script>
+        <!-- Client -->
+        <script src="client/driver.js"></script>
+        <script src="client/client.js"></script>
+        <script src="client/resource_library.js"></script>
+        <script src="client/skin.js"></script>
+        <script src="client/gameplay.js"></script>
+        <style>
+html, body{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-color: #ffffdd;
+}
+.central{
+    text-align: center;
+}
+#game_area{
+    cursor: pointer;
+    display: inline-block;
+    outline: 0px;
+    padding: 0;
+    margin: 0;
+}
+#game_area canvas{
+    padding: 0;
+    margin: 0;
+}
+#link_wrapper{
+    display: inline-block;
+    text-align: right;
+}
+a:link, a:visited{
+    color: inherit;
+}
+#link_wrapper > a:link{
+    margin-right: 1em;
+    text-decoration: none;
+    /* Chrome adds an extra -1em margin to this element, for some reason. */
+}
+#link_wrapper > a:hover{
+    color: #fc0;
+}
+        </style>
+    </head>
+    <body>
+        <div class="central">
+            <div id='link_wrapper'>
+                <div id="game_area"></div>
+                <br>
+                <a href="https://www.patreon.com/jacobabrennan"> -- Support this Game</a>
+            </div>
+        </div>
+        <script>
+'use strict';
+    var configuration = {
+        containerId: 'game_area'
+    };
+    console.log('Start');
+    client.setup(configuration);
+        </script>
+    </body>
+</html>
