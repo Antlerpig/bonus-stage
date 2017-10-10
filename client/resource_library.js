@@ -269,7 +269,9 @@ client.resourceLibrary = {
                 'primary': {offsetX: 128},
                 'primaryDown': {offsetX: 128, offsetY: 32}
             }, {width: 32, height: 32}),
-            "test": spriteSheet('img/test.png', {
+            statue: graphic('img/statue.png', 32, 52, 0, 0, {nudgeX: -9}),
+            base: graphic('img/base.png', 32, 48, 0, 0),
+            test: spriteSheet('img/test.png', {
                 "walk1": {},
                 "walk2": {offsetX: 16},
                 "walk3": {offsetX: 32},
@@ -277,8 +279,8 @@ client.resourceLibrary = {
                 "punch2": {offsetX: 80, width: 32},
                 "punch3": {offsetX: 160, width: 32},
                 "punch4": {offsetX: 192, width: 32},
-                "jump": {offsetX: 224, width: 32},
-                "jumpKick": {offsetX: 256, width: 32},
+                "jump": {offsetX: 224, width: 24},
+                "jumpKick": {offsetX: 252, width: 36},
                 "kneel": {offsetX: 288},
                 "down": {offsetX: 304, width: 32, nudgeX: -8},
                 "trip": {offsetX: 336, width: 32, nudgeX: -8},
@@ -286,7 +288,7 @@ client.resourceLibrary = {
                 "hurt2": {offsetX: 384},
                 "hurt3": {offsetX: 400, width: 32},
             }, {width: 16, height: 48}),
-            "testLeft": spriteSheet('img/test.png', {
+            testLeft: spriteSheet('img/test.png', {
                 "walk1": {},
                 "walk2": {offsetX: 16},
                 "walk3": {offsetX: 32},
@@ -295,7 +297,7 @@ client.resourceLibrary = {
                 "punch3": {offsetX: 160, width: 32, nudgeX: -16},
                 "punch4": {offsetX: 192, width: 32, nudgeX: -16},
                 "jump": {offsetX: 224, width: 32, nudgeX: -16},
-                "jumpKick": {offsetX: 256, width: 32, nudgeX: -16},
+                "jumpKick": {offsetX: 124, width: 36, nudgeX: -16},
                 "kneel": {offsetX: 288},
                 "down": {offsetX: 304, width: 32, nudgeX: -8},
                 "trip": {offsetX: 336, width: 32, nudgeX: -8},
@@ -303,10 +305,20 @@ client.resourceLibrary = {
                 "hurt2": {offsetX: 384},
                 "hurt3": {offsetX: 400, width: 32, nudgeX: -16},
             }, {width: 16, height: 48, anchorY: 48}),
-            "tiles": spriteSheet('img/sprites.png', {
+            tiles: spriteSheet('img/sprites.png', {
                 "sidewalk1": {},
                 "sidewalk2": {offsetY: 16}
             }),
+            bits: spriteSheet('img/bits.png', {
+                "1_1": {offsetX: 0, offsetY: 0}, "1_2": {offsetX: 8, offsetY: 0},
+                "1_3": {offsetX: 0, offsetY: 8}, "1_4": {offsetX: 8, offsetY: 8},
+                "1_5": {offsetX: 0, offsetY:16}, "1_6": {offsetX: 8, offsetY:16},
+                "1_7": {offsetX: 0, offsetY:24}, "1_8": {offsetX: 8, offsetY:24},
+                "2_1": {offsetX:16, offsetY: 0}, "2_2": {offsetX:24, offsetY: 0},
+                "2_3": {offsetX:16, offsetY: 8}, "2_4": {offsetX:24, offsetY: 8},
+                "2_5": {offsetX:16, offsetY:16}, "2_6": {offsetX:24, offsetY:16},
+                "2_7": {offsetX:16, offsetY:24}, "2_8": {offsetX:24, offsetY:24}
+            }, {width: 8, height: 8})
 		},
 		event: {
             'empty': event({}),

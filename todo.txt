@@ -5,7 +5,5 @@ Graphics
         With Start Button
     Ready? Go!
     Perfect!
-    Statue, Base, +bits (explosion)
-    Character
     Background
     Crowd
