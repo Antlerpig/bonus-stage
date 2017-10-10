@@ -259,6 +259,7 @@ client.resourceLibrary = {
 	images: {},
 	library: {
 		graphic: {
+            title: graphic('img/title.png', 256, 144),
             controller: spriteSheet('img/buttons.png', {
                 'left': {},
                 'leftDown': {offsetY: 32},
@@ -267,7 +268,9 @@ client.resourceLibrary = {
                 'up': {offsetX: 64},
                 'upDown': {offsetX: 64, offsetY: 32},
                 'primary': {offsetX: 128},
-                'primaryDown': {offsetX: 128, offsetY: 32}
+                'primaryDown': {offsetX: 128, offsetY: 32},
+                'start': {offsetY: 64, width: 64},
+                'startDown': {offsetY: 96, width: 64},
             }, {width: 32, height: 32}),
             statue: graphic('img/statue.png', 32, 52, 0, 0, {nudgeX: -9}),
             base: graphic('img/base.png', 32, 48, 0, 0),

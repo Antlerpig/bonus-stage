@@ -337,6 +337,7 @@ var enemy = Object.extend(character, {
                 this.y + randomInterval(0, this.height)
             );
         }
+        client.audio.playEffect('hitBig');
         this.dead = true;
         game.level.cancelMover(this);
     },
@@ -347,6 +348,7 @@ var enemy = Object.extend(character, {
     durability: 12,
     hurt: function (amount, attacker, tripping){
         if(!this.shaking){
+            client.audio.playEffect('hitSmall');
             this.durability--;
             if(this.durability <= 0){
                 this.die();

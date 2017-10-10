@@ -117,12 +117,18 @@ client.gameplay.clearScreen = Object.extend(driver, {
     focused: function (){
         this.time = 0;
         this.blocking = true;
-        this.message = 'Perfect!';
+        this.message = '';
     },
     tick: function (){
         this.time++;
-        if(this.time > 80){
+        if(this.time == 111){
+            window.location = 'http://letmegooglethat.com/?q=columbus+history+genocide';
+        } else if(this.time > 110){
             this.message = '';
+        } else if(this.time > 30){
+            this.message = 'Perfect!'
+        } else if(this.time == 30){
+            client.audio.playEffect('perfect');
         }
     },
     display: function (){
