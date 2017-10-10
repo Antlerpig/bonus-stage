@@ -244,8 +244,8 @@ var sequences = {
     }),
 };
 var character = Object.extend(mover, {
-    x: 16,
-    y: 96,
+    x: 32,
+    y: 32,
     height: 32,
     name: 'character',
     graphic: 'test',
