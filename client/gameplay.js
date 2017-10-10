@@ -53,8 +53,9 @@ client.gameplay = Object.extend(driver, {
         }
         return false;
     },
-    display: function (options){
-        // Draw Mapdraw: function (options){
+    display: function (options){ // Draw game map
+        // Draw Backround
+        client.skin.drawGraphic('providence', null, 0, 0);
         // Draw Tiles
         for(var posI = 0; posI < game.level.tileGrid.length; posI++){
             var tile = game.level.tileGrid[posI];
@@ -63,9 +64,9 @@ client.gameplay = Object.extend(driver, {
             var color = undefined;
             if(tile.color){
                 color = tile.color;
+                client.skin.fillRect(
+                    posX*TILE_SIZE, posY*TILE_SIZE, TILE_SIZE, TILE_SIZE, color);
             }
-            client.skin.fillRect(
-                posX*TILE_SIZE, posY*TILE_SIZE, TILE_SIZE, TILE_SIZE, color);
             if(tile.graphicState){
                 client.skin.drawGraphic(tile.graphic, tile.graphicState, posX*TILE_SIZE, posY*TILE_SIZE);
             }

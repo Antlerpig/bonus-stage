@@ -260,6 +260,7 @@ client.resourceLibrary = {
 	library: {
 		graphic: {
             title: graphic('img/title.png', 256, 144),
+            providence: graphic('img/providence.png', 256, 144),
             controller: spriteSheet('img/buttons.png', {
                 'left': {},
                 'leftDown': {offsetY: 32},
