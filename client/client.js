@@ -3,13 +3,13 @@
 var client = Object.extend(driver, {
     drivers: {},
     setup: function (configuration){
+        this.audio.setup(configuration);
         this.resourceLibrary.setup(configuration, function (){
             this.keyCapture.setup(configuration);
             this.skin.setup(configuration);
             this.title.setup(configuration);
             this.gameplay.setup(configuration);
             this.focus(this.title);
-            
             /*this.drivers.title.setup(configuration);
             this.drivers.gameplay.setup(configuration);
             this.focus(this.drivers.title);*/
