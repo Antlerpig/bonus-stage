@@ -18,12 +18,12 @@ var sequences = {
         takeTurn: function (owner){
             var directionX = 0;
             var directionY = 0;
-            if(owner.order('punch', PRIMARY)){
-                owner.sequence('punch');
-                return;
-            }
             if(owner.order('jump', UP)){
                 owner.sequence('jump');
+                return;
+            }
+            if(owner.order('punch', PRIMARY)){
+                owner.sequence('punch');
                 return;
             }
             if(owner.order('walkRight' , RIGHT)){ directionX =  1;}
@@ -331,6 +331,12 @@ var enemy = Object.extend(character, {
     faction: FACTION_ENEMY,
     dead: false,
     die: function (){
+        for(var I = 0; I < 16; I++){
+            this.bit(
+                this.x + randomInterval(0, this.width),
+                this.y + randomInterval(0, this.height)
+            );
+        }
         this.dead = true;
         game.level.cancelMover(this);
     },
@@ -346,28 +352,25 @@ var enemy = Object.extend(character, {
                 this.die();
             }
             this.shaking = 9;
+            for(var I = 0; I < 3; I++){
+                this.bit(
+                    this.x + randomInterval(0, this.width),
+                    this.y + randomInterval(0, this.height)
+                );
+            }
         }
     },
-    order: function (description, command){
-        /*switch (description){
-            case 'walkRight':
-                if(game.character.x - this.x > 14){ return true;}
-                if(this.direction === LEFT && game.character.x > this.x){ return true;}
-                break;
-            case 'walkLeft':
-                if(game.character.x - this.x < -14){ return true;}
-                if(this.direction === RIGHT && game.character.x < this.x){ return true;}
-                break;
-            case 'punch':
-                if(Math.random()*8 > 1){ return false;}
-                if(Math.abs(game.character.x - this.x) <= 14+12){ return true;}
-        }*/
-        return false;
+    bit: function (x, y){
+        var aBit = Object.instantiate(bit);
+        aBit.setup(this.bitType, x, y);
     },
+    order: function (){}
 });
 var statue = Object.extend(enemy, {
     height: 40,
-    color: 'goldenrod',
+    graphic: 'statue',
+    gravity: 1/2,
+    bitType: '2',
     _new: function (){
         var result = enemy._new.apply(this, arguments);
         this.x = 12*TILE_SIZE;
@@ -375,9 +378,10 @@ var statue = Object.extend(enemy, {
         this.base = Object.instantiate(base);
         this.base.x = this.x+(this.width-this.base.width)/2;
         this.base.y = 2*TILE_SIZE;
+        base.statue = this;
         return result;
     },
-    durability: 13,
+    durability: 12,
     translate: function (deltaX, deltaY){
         if(this.base && !this.base.dead){ deltaY = 0;}
         return enemy.translate.call(this, deltaX, deltaY);
@@ -388,13 +392,45 @@ var statue = Object.extend(enemy, {
     }
 });
 var base = Object.extend(enemy, {
+    graphic: 'base',
     width: 32,
     height: 48,
-    color: 'white',
+    bitType: '1',
+    //durability: 1,
+    die: function (){
+        var oldStatue = this.statue;
+        this.statue.base = null;
+        this.statue = null;
+        //
+        oldStatue.velY = 3;
+        //
+        return enemy.die.apply(this, arguments);
+    }
 });
 var hero = Object.extend(character, {
     translate: function (deltaX, deltaY){
         deltaX = Math.min(this.x+deltaX, 11*TILE_SIZE) - this.x;
         return character.translate.call(this, deltaX, deltaY);
+    }
+});
+var bit = Object.extend(mover, {
+    graphic: 'bits',
+    gravity: 1/2,
+    setup: function (bitType, x, y){
+        this.time = gaussRandom(5, 4);
+        this.graphicState = bitType+'_'+pick('1','2','3','4');
+        this.x = x;
+        this.y = y;
+        this.velX = gaussRandom(3,3);
+        this.velY = gaussRandom(4,3);
+    },
+    takeTurn: function (){
+        var result = mover.takeTurn.apply(this, arguments);
+        this.velY -= this.gravity;
+        this.translate(this.velX, this.velY);
+        if(this.time-- <= 0){
+            this.dispose();
+        }
+        return result;
     }
 })

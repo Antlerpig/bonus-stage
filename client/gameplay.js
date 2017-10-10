@@ -103,12 +103,12 @@ client.gameplay.readyScreen = Object.extend(driver, {
         if(this.time > 80){
             client.gameplay.focus(null);
         } else if(this.time > 60){
-            this.message = 'Go!';
+            this.message = '  Go!  ';
             this.blocking = false;
         }
     },
     display: function (){
-        client.skin.drawString(4*TILE_SIZE, 6*TILE_SIZE, this.message);
+        client.skin.drawString(6*TILE_SIZE, 4.5*TILE_SIZE, this.message);
         return true; // Block
     }
 });
@@ -126,7 +126,7 @@ client.gameplay.clearScreen = Object.extend(driver, {
         }
     },
     display: function (){
-        client.skin.drawString(4*TILE_SIZE, 6*TILE_SIZE, this.message);
+        client.skin.drawString(6*TILE_SIZE, 4.5*TILE_SIZE, this.message);
         return true; // Block
     }
 });
