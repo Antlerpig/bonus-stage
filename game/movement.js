@@ -17,6 +17,7 @@ var game = {
     },
     camera: {
         x: 0,
+        y: 0,
         targetX: 0,
         focus: function (newX){
             if(newX){
@@ -34,6 +35,17 @@ var game = {
         },
         borderRight: function (){
             return this.x + DISPLAY_WIDTH;
+        },
+        shake: function (){
+            this.shakeTime = 12;
+        },
+        getY: function (){
+            if(this.shakeTime-- >= 0){
+                if(this.shakeTime % 2){
+                    return this.y-2;
+                }
+            }
+            return this.y;
         }
     }
 };

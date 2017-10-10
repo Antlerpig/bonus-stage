@@ -55,7 +55,7 @@ client.gameplay = Object.extend(driver, {
     },
     display: function (options){ // Draw game map
         // Draw Backround
-        client.skin.drawGraphic('providence', null, 0, 0);
+        client.skin.drawGraphic('providence', null, 0, game.camera.getY());
         // Draw Tiles
         for(var posI = 0; posI < game.level.tileGrid.length; posI++){
             var tile = game.level.tileGrid[posI];

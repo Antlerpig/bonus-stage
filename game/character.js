@@ -373,6 +373,14 @@ var statue = Object.extend(enemy, {
     graphic: 'statue',
     gravity: 1/2,
     bitType: '2',
+    firstLand: false,
+    land: function (){
+        if(!this.firstLand){
+            this.firstLand = true;
+            game.camera.shake();
+        }
+        return enemy.land.apply(this, arguments);
+    },
     _new: function (){
         var result = enemy._new.apply(this, arguments);
         this.x = 12*TILE_SIZE;
