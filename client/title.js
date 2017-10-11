@@ -13,6 +13,11 @@ client.title = Object.extend(driver, {
         }
         return false;
     },
+    tick: function (){
+        if(client.keyCapture.check(PRIMARY) || client.skin.touchScreen.check(PRIMARY)){
+            this.newGame();
+        }
+    },
     newGame: function (){
         client.audio.playEffect('stageStart');
         game._new();
