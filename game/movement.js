@@ -58,8 +58,7 @@ var layout = {
     height: 12,
     tileTypes: {
         ' ': Object.extend(tile, {dense: false}),
-        '-': Object.extend(tile, {graphicState: 'sidewalk1', color: '#9c4', dense: false}),
-        '=': Object.extend(tile, {graphicState: 'sidewalk2', color: '#9c4', dense: true}),
+        '=': Object.extend(tile, {dense: true}),
         '#': Object.extend(tile, {dense: true}),
         '.': Object.extend(tile, {color: '#488', dense: true}),
         '|': Object.extend(tile, {graphicState: 'sidewalk1', color: '#9c4', dense: true})
@@ -74,7 +73,7 @@ var layout = {
         '                '+
         '                '+
         '                '+
-        '----------------'+
+        '                '+
         '================'+
         '################'
 };

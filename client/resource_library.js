@@ -309,10 +309,6 @@ client.resourceLibrary = {
                 "hurt2": {offsetX: 384},
                 "hurt3": {offsetX: 400, width: 32, nudgeX: -16},
             }, {width: 16, height: 48, anchorY: 48}),
-            tiles: spriteSheet('img/sprites.png', {
-                "sidewalk1": {},
-                "sidewalk2": {offsetY: 16}
-            }),
             bits: spriteSheet('img/bits.png', {
                 "1_1": {offsetX: 0, offsetY: 0}, "1_2": {offsetX: 8, offsetY: 0},
                 "1_3": {offsetX: 0, offsetY: 8}, "1_4": {offsetX: 8, offsetY: 8},
